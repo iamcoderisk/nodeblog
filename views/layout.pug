@@ -1,0 +1,33 @@
+doctype html
+html  
+    head 
+    title Knowledge Base
+    link(rel='stylesheet' type='text/css' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+    body 
+      nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+        a.navbar-brand(href='/') Nodekb
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        #navbarSupportedContent.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item.active
+              a.nav-link(href='/articles/add')
+                | Add Article
+                span.sr-only (current)
+
+
+    .container
+      br
+      != messages('messages', locals)
+      if errors
+        each error, i in errors 
+          div(class="alert alert-danger") #{error.msg}
+      block content
+      br
+      hr
+      footer
+        p  &copy; mynode 2018
+
+        script(src='/bower_components/jquery/dist/jquery.min.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+        script(src='/bower_components/js/main.js')
