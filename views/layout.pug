@@ -14,7 +14,15 @@ html
               a.nav-link(href='/articles/add')
                 | Add Article
                 span.sr-only (current)
-
+          ul.nav.nav-navbar.navbar-right  
+          if user 
+            li.nav.nav-item 
+              a(href="/users/logout") Logout
+          else
+            li.nav.nav-item 
+              a.nav-link(href="/users/register") Register
+            li.nav.nav-item 
+              a.nav-link(href="/users/login") Login
 
     .container
       br

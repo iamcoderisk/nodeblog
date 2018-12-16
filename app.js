@@ -3,11 +3,16 @@ const mongoose = require("mongoose");
 const expressValidator = require("express-validator");
 const flash = require("connect-flash");
 const session = require("express-session");
-mongoose.connect("mongodb://localhost/nodekb");
+const passport = require("passport");
+const config = require("./config/database");
 mongoose.connect(
-	"mongodb://localhost:27017/nodekb",
+	config.database,
 	{ useNewUrlParser: true }
 );
+// mongoose.connect(
+// 	"mongodb://localhost:27017/nodekb",
+
+// );
 var path = require("path");
 
 let Article = require("./models/article");
@@ -66,6 +71,16 @@ app.use(
 		}
 	})
 );
+
+//passport configuration
+require("./config/passport")(passport);
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+app.get("*", (req, res, next) => {
+	res.locals.user = req.user || null;
+	next();
+});
 app.get("/", (req, res) => {
 	Article.find({}, (err, articles) => {
 		if (err) {
@@ -79,7 +94,20 @@ app.get("/", (req, res) => {
 	});
 });
 let articles = require("./routes/articles");
+let users = require("./routes/users");
 app.use("/articles", articles);
+app.use("/users", users);
+/***
+ *
+ *  app.user({
+ * 	"/articles",
+ * "/useres"
+ *
+ * },{
+ * articles,
+ * users
+ * });
+ */
 app.listen(3000, function() {
 	console.log("development server started");
 });
