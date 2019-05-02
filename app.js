@@ -15,8 +15,8 @@ mongoose.connect(
 // );
 var path = require("path");
 
-let Article = require("./models/article");
-let db = mongoose.connection;
+var Article = require("./models/article");
+var db = mongoose.connection;
 //check for db errors
 db.on("error", err => {
 	console.log(err);
@@ -93,8 +93,8 @@ app.get("/", (req, res) => {
 		}
 	});
 });
-let articles = require("./routes/articles");
-let users = require("./routes/users");
+var articles = require("./routes/articles");
+var users = require("./routes/users");
 app.use("/articles", articles);
 app.use("/users", users);
 /***
