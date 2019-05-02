@@ -1,3 +1,5 @@
+'use strict';
+const MB = 1024 * 1024;
 const express = require("express");
 const mongoose = require("mongoose");
 const expressValidator = require("express-validator");
